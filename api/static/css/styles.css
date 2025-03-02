@@ -1,0 +1,148 @@
+/* Estilos Globais */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to bottom, #6DBDF2 30%, #f0f0f0 100%);
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Flash Messages */
+.flash-container {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 600px;
+    z-index: 1000;
+}
+
+.alert {
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Botões Base */
+.btn-base {
+    background-color: #0F468C;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-base:hover {
+    background-color: #0c3a73;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid #0F468C;
+    color: #0F468C;
+}
+
+.btn-outline:hover {
+    background: #0F468C;
+    color: white;
+}
+
+/* Cards Base */
+.card-base {
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    background: white;
+}
+
+/* Cores Base */
+:root {
+    --primary-color: #0F468C;
+    --primary-light: #6DBDF2;
+    --primary-dark: #0c3a73;
+    --text-dark: #333;
+    --text-muted: #555;
+    --white: #fff;
+}
+
+/* Formulários Base */
+.form-control {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+}
+
+/* Container Base */
+.container-base {
+    width: 80%;
+    max-width: 1200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Links Base */
+.link-base {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+}
+
+.link-base:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* Títulos Base */
+.title-base {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Layout de duas colunas base */
+.two-column-layout {
+    display: flex;
+    width: 90%;
+    max-width: 1100px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Responsividade Base */
+@media (max-width: 768px) {
+    .two-column-layout {
+        flex-direction: column;
+    }
+
+    .container-base {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .title-base {
+        font-size: 2rem;
+    }
+}
