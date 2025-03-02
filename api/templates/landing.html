@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+
+{% block title %}Local2Weather{% endblock %}
+
+{% block content %}
+  <style>
+    /* Gradiente de fundo original */
+    body {
+      background: linear-gradient(to bottom, #6DBDF2 30%, #f0f0f0 100%);
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    /* Navbar superior */
+    .navbar {
+      position: absolute;
+      top: 20px;
+      right: 50px; /* Maior distância da margem */
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    /* Botão de Cadastro */
+    .btn-nav {
+      background-color: #0F468C;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: bold;
+      text-decoration: none;
+      transition: all 0.3s ease-in-out;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Efeito hover: faz o botão subir */
+    .btn-nav:hover {
+      background-color: #0c3a73;
+      transform: translateY(-3px); /* Levanta o botão */
+    }
+
+    /* Link de Login */
+    .nav-link {
+      font-size: 1rem;
+      color: #0F468C;
+      text-decoration: none;
+      font-weight: bold;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    /* Efeito hover: faz o link subir */
+    .nav-link:hover {
+      transform: translateY(-3px);
+    }
+
+    /* Container principal */
+    .landing-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+    }
+
+    /* Título principal */
+    .landing-title {
+      font-size: 3.5rem;
+      font-weight: bold;
+      color: #0F468C;
+      margin-bottom: 30px;
+    }
+
+    /* Container dos botões */
+    .landing-buttons {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    /* Botão principal */
+    .btn-main {
+      background-color: #0F468C;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    /* Ícone de seta */
+    .btn-main::after {
+      content: "↗";
+      font-size: 1rem;
+    }
+
+    .btn-main:hover {
+      background-color: #0c3a73;
+      transform: translateY(-3px); /* Botão também sobe */
+    }
+
+    /* Links ao lado */
+    .link {
+      font-size: 1.1rem;
+      color: #0F468C;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: bold;
+    }
+
+    .link:hover {
+      text-decoration: underline;
+    }
+
+    /* Adiciona seta nos links */
+    .link::after {
+      content: ">";
+      font-size: 1rem;
+      opacity: 0.7;
+    }
+
+  </style>
+
+  <!-- Navbar com botão de Cadastro e link de Login -->
+  <div class="navbar">
+    <a href="{{ url_for('cadastro') }}" class="btn-nav">Cadastro</a>
+    <a href="{{ url_for('login') }}" class="nav-link">Login</a>
+  </div>
+
+  <!-- Container principal -->
+  <div class="landing-container">
+    <div class="landing-title">Local2Weather</div>
+
+    <!-- Botões e Links -->
+    <div class="landing-buttons">
+      <a href="{{ url_for('planos_bp.planos') }}" class="btn-main">Try Out</a>
+      <a href="#" class="link">Learn More</a>
+    </div>
+  </div>
+
+{% endblock %}

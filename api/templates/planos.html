@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(to bottom, #6DBDF2 30%, #f0f0f0 100%);
+        min-height: 100vh;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .planos-container {
+        width: 80%;
+        max-width: 1200px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .card {
+        border: none;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-header {
+        padding: 25px;
+        border: none;
+    }
+
+    .plano-free .card-header {
+        background: #0F468C;
+    }
+
+    .plano-premium .card-header {
+        background: #6DBDF2;
+    }
+
+    .card-body {
+        background: white;
+        padding: 40px;
+    }
+
+    .preco {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #0F468C;
+    }
+
+    .periodo {
+        color: #555;
+        font-size: 1.1rem;
+    }
+
+    .btn-plano {
+        background: #0F468C;
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        border-radius: 8px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-plano:hover {
+        background: #0c3a73;
+        color: white;
+    }
+
+    .btn-plano-outline {
+        background: transparent;
+        border: 2px solid #0F468C;
+        color: #0F468C;
+    }
+
+    .btn-plano-outline:hover {
+        background: #0F468C;
+        color: white;
+    }
+
+    .feature-list li {
+        font-size: 1.1rem;
+        color: #555;
+        margin-bottom: 15px;
+    }
+</style>
+
+<div class="planos-container">
+    <h1 class="text-center mb-5" style="color: #0F468C; font-weight: bold;">Escolha seu Plano</h1>
+    
+    <div class="row justify-content-center">
+        <!-- Plano Free -->
+        <div class="col-md-5 mb-4">
+            <div class="card h-100 plano-free">
+                <div class="card-header text-white text-center py-3">
+                    <h3 class="mb-0">Plano Free</h3>
+                </div>
+                <div class="card-body d-flex flex-column">
+                    <div class="text-center mb-4">
+                        <div class="preco">R$ 0</div>
+                        <div class="periodo">7 dias grátis</div>
+                    </div>
+                    <ul class="list-unstyled feature-list">
+                        <li><i class="fas fa-check me-2" style="color: #0F468C"></i>Acesso das funções do plano Premium</li>
+                    </ul>
+                    {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('home') }}" class="btn btn-plano btn-plano-outline mt-auto">Acessar</a>
+                    {% else %}
+                        <a href="{{ url_for('cadastro') }}" class="btn btn-plano btn-plano-outline mt-auto">Começar Agora</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Plano Premium -->
+        <div class="col-md-5 mb-4">
+            <div class="card h-100 plano-premium">
+                <div class="card-header text-white text-center py-3">
+                    <h3 class="mb-0">Plano Premium</h3>
+                </div>
+                <div class="card-body d-flex flex-column">
+                    <div class="text-center mb-4">
+                        <div class="preco">R$ 30</div>
+                        <div class="periodo">por mês</div>
+                    </div>
+                    <ul class="list-unstyled feature-list">
+                        <li><i class="fas fa-check me-2" style="color: #0F468C"></i>Consultas ilimitadas</li>
+                        <li><i class="fas fa-check me-2" style="color: #0F468C"></i>Suporte prioritário 24/7</li>
+                    </ul>
+                    {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('planos.assinar_premium') }}" class="btn btn-plano mt-auto">Assinar Agora</a>
+                    {% else %}
+                        <a href="{{ url_for('login') }}" class="btn btn-plano mt-auto">Fazer Login para Assinar</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

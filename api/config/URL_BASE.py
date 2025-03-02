@@ -1,0 +1,1 @@
+URL_BASE = "http://api.weatherapi.com/v1/current.json?"

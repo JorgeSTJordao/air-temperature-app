@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+
+{% block title %}Login | Local2Weather{% endblock %}
+
+{% block content %}
+  <style>
+    /* Gradiente de fundo original */
+    body {
+      background: linear-gradient(to bottom, #6DBDF2 30%, #f0f0f0 100%);
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Container principal centralizado */
+    .login-container {
+      display: flex;
+      width: 80%;
+      max-width: 900px;
+      height: 500px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* Coluna da esquerda (Login) */
+    .left-column {
+      flex: 1;
+      background: white;
+      padding: 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Coluna da direita (Destaque) - Agora centralizada */
+    .right-column {
+      flex: 1;
+      background: #6DBDF2;
+      display: flex;
+      align-items: center; /* Centraliza verticalmente */
+      justify-content: center; /* Centraliza horizontalmente */
+      text-align: center; /* Garante alinhamento do texto */
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    /* Título da página */
+    .login-title {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #0F468C;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    /* Estilização dos botões */
+    .btn-login {
+      background: #0F468C;
+      color: white;
+      border: none;
+      width: 100%;
+      padding: 12px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 8px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease-in-out;
+      cursor: pointer;
+    }
+
+    .btn-login:hover {
+      background: #0c3a73;
+    }
+
+    /* Inputs do Flask-WTF */
+    .form-control {
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      margin-bottom: 15px;
+    }
+
+    /* Mensagem de aceite */
+    .terms {
+      font-size: 0.9rem;
+      text-align: center;
+      color: #555;
+      margin-top: 20px;
+    }
+
+    .terms a {
+      color: #0F468C;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .terms a:hover {
+      text-decoration: underline;
+    }
+
+  </style>
+
+  <!-- Container principal -->
+  <div class="login-container">
+      
+    <!-- Coluna Esquerda (Login) -->
+    <div class="left-column">
+
+      <form method="POST">
+        {{ forms_login.csrf_token() }}
+
+        <!-- Campo de Email -->
+        <div class="mb-3">
+          {{ forms_login.email.label(class="form-label") }}
+          {{ forms_login.email(class="form-control") }}
+        </div>
+
+        <!-- Campo de Senha -->
+        <div class="mb-4">
+          {{ forms_login.senha.label(class="form-label") }}
+          {{ forms_login.senha(class="form-control") }}
+        </div>
+
+        <!-- Botão de Login -->
+        <div class="button-container">
+          {{ forms_login.submit(class="btn-login") }}
+        </div>
+
+      </form>
+
+      <div class="terms">
+        Ao continuar, você concorda com os <a href="#">Termos do Consumidor</a> e a <a href="#">Política de Uso</a> da Local2Weather.
+      </div>
+    </div>
+
+    <!-- Coluna Direita (Destaque) -->
+    <div class="right-column">
+      Localize e veja a previsão do tempo de qualquer lugar do mundo!
+    </div>
+
+  </div>
+
+{% endblock %}

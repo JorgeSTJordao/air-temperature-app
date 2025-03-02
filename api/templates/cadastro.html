@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+
+{% block title %}Cadastro | Local2Weather{% endblock %}
+
+{% block content %}
+  <style>
+    /* Gradiente de fundo */
+    body {
+      background: linear-gradient(to bottom, #6DBDF2 30%, #f0f0f0 100%);
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Container principal centralizado (MAIOR) */
+    .login-container {
+      display: flex;
+      width: 90%;            /* Aumentado para 90% */
+      max-width: 1100px;     /* Aumentado para 1100px */
+      height: 550px;         /* Aumentado para 550px */
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* Coluna da esquerda (Cadastro) - mantendo proporções parecidas com o Login */
+    .left-column {
+      flex: 1;
+      background: white;
+      padding: 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Coluna da direita (Destaque) - idem ao Login */
+    .right-column {
+      flex: 1;
+      background: #6DBDF2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    /* Título da página - igual ao Login */
+    .login-title {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #0F468C;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    /* Botão - igual ao Login */
+    .btn-login {
+      background: #0F468C;
+      color: white;
+      border: none;
+      width: 100%;
+      padding: 12px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 8px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease-in-out;
+      cursor: pointer;
+    }
+
+    .btn-login:hover {
+      background: #0c3a73;
+    }
+
+    /* Inputs - iguais ao Login */
+    .form-control {
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      margin-bottom: 15px;
+    }
+
+    /* Mensagem de aceite - igual ao Login */
+    .terms {
+      font-size: 0.9rem;
+      text-align: center;
+      color: #555;
+      margin-top: 20px;
+    }
+
+    .terms a {
+      color: #0F468C;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .terms a:hover {
+      text-decoration: underline;
+    }
+  </style>
+
+  <!-- Container principal -->
+  <div class="login-container">
+    <!-- Coluna Esquerda (Cadastro) -->
+    <div class="left-column">
+      <div class="login-title">Crie sua conta</div>
+      <form method="POST">
+        {{ forms_cadastro.csrf_token() }}
+
+        <!-- Campo de E-mail -->
+        <div class="mb-3">
+          {{ forms_cadastro.email.label(class="form-label") }}
+          {{ forms_cadastro.email(class="form-control") }}
+        </div>
+
+        <!-- Campo de Senha -->
+        <div class="mb-3">
+          {{ forms_cadastro.senha.label(class="form-label") }}
+          {{ forms_cadastro.senha(class="form-control") }}
+        </div>
+
+        <!-- Campo de Telefone -->
+        <div class="mb-3">
+          {{ forms_cadastro.telefone.label(class="form-label") }}
+          {{ forms_cadastro.telefone(class="form-control") }}
+        </div>
+
+        <!-- Botão de Cadastro -->
+        <div class="button-container">
+          {{ forms_cadastro.submit(class="btn-login") }}
+        </div>
+      </form>
+
+      <div class="terms">
+        Ao se cadastrar, você concorda com os 
+        <a href="#">Termos de Uso</a> e a 
+        <a href="#">Política de Privacidade</a> da Local2Weather.
+      </div>
+    </div>
+
+    <!-- Coluna Direita (Destaque) -->
+    <div class="right-column">
+      Descubra as melhores previsões do tempo e personalize sua experiência!
+    </div>
+  </div>
+{% endblock %}

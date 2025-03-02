@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+  <style>
+    /* Gradiente de fundo fixo */
+    body {
+      background: linear-gradient(to bottom, #6DBDF2 70%, #f0f0f0 100%);
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Estilização do Flash Message */
+    .flash-container {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      max-width: 600px;
+      z-index: 1000;
+    }
+
+    /* Container principal */
+    .container-custom {
+      display: flex;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      max-width: 1000px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Coluna do formulário */
+    .left-column {
+      flex: 1;
+      max-width: 45%;
+      padding: 30px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 10px 0 30px rgba(0, 0, 0, 0.2);
+      min-height: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .left-column .form-label {
+        margin-bottom: 20px;
+    }
+
+    .left-column .form-control {
+        margin-bottom: 40px;
+    }
+
+    /* Centraliza o botão e reduz seu tamanho */
+    .button-container {
+      display: flex;
+      justify-content: center;
+    }
+
+    .btn-custom {
+      background-color: #0F468C !important;
+      border-color: #0F468C !important;
+      color: white !important;
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-weight: bold;
+      text-transform: uppercase;
+      transition: all 0.3s ease-in-out;
+      width: 60%;
+    }
+
+    .btn-custom:hover {
+      background-color: #0c3a73 !important;
+      border-color: #0c3a73 !important;
+    }
+
+    /* Coluna da resposta */
+    .right-column {
+      flex: 1;
+      max-width: 45%;
+      padding: 30px;
+      background: white;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: #333;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Títulos em negrito (Temperatura e Localização) */
+    .data-title {
+      font-weight: 700;
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+    }
+
+    /* Lista de informações */
+    .data-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    /* Rótulos ("Celsius", "Kelvin", "Cidade", etc.) */
+    .data-list li strong {
+      color: #777;
+      font-size: 1rem;
+      font-weight: 500;
+      display: inline-block;
+      min-width: 100px;
+    }
+
+    /* Respostas */
+    .data-list li span {
+      color: #333;
+      font-size: 1.2rem;
+      font-weight: normal;
+      margin-left: 10px;
+    }
+
+  </style>
+
+  <!-- Container -->
+  <div class="container-custom">
+    <!-- Coluna Esquerda (Formulário) -->
+    <div class="left-column">
+      <form method="POST">
+        {{ forms_location.hidden_tag() }}
+
+        <div class="mb-3">
+          <label for="latitude" class="form-label">Latitude</label>
+          <input type="number" name="latitude"
+                 class="form-control"
+                 value="{{ '%.4f' | format(forms_location.latitude.data or 0.0000) }}"
+                 step="0.0001"
+                 min="-90.0000" max="90.0000">
+        </div>
+
+        <div class="mb-3">
+          <label for="longitude" class="form-label">Longitude</label>
+          <input type="number" name="longitude"
+                 class="form-control"
+                 value="{{ '%.4f' | format(forms_location.longitude.data or 0.0000) }}"
+                 step="0.0001"
+                 min="-180.0000" max="180.0000">
+        </div>
+
+        <div class="button-container">
+          {{ forms_location.submit(class="btn btn-custom") }}
+        </div>
+      </form>
+    </div>
+
+    <!-- Coluna Direita (Resposta) -->
+    <div class="right-column">
+        <div class="data-title">Temperatura</div>
+        <ul class="data-list">
+          <li><strong>Celsius:</strong> <span>{{ '%.2f' | format(valores_temp[3]) if valores_temp else '' }} °C</span></li>
+          <li><strong>Kelvin:</strong> <span>{{ '%.2f' | format(valores_temp[4]) if valores_temp else '' }} K</span></li>
+        </ul>
+
+        <br>
+
+        <div class="data-title">Localização</div>
+        <ul class="data-list">
+          <li><strong>Cidade:</strong> <span>{{ valores_temp[0] if valores_temp else '' }}</span></li>
+          <li><strong>Região:</strong> <span>{{ valores_temp[1] if valores_temp else '' }}</span></li>
+          <li><strong>País:</strong> <span>{{ valores_temp[2] if valores_temp else '' }}</span></li>
+        </ul>
+    </div>
+  </div>
+
+  <!-- Bootstrap 5 Script para fechar alertas -->
+  <script>
+    var alertList = document.querySelectorAll('.alert-dismissible');
+    alertList.forEach(function (alert) {
+      new bootstrap.Alert(alert);
+    });
+  </script>
+
+{% endblock %}
