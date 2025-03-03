@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}Pagamento - Air Temperature{% endblock %}
+
+{% block content %}
+<!-- Scripts específicos da página -->
+<script src="https://sdk.mercadopago.com/js/v2" async></script>
+<script src="{{ url_for('static', filename='js/pagamento.js') }}" async></script>
+
+<style>
+    .payment-form {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .container__payment {
+        padding: 30px;
+        margin-bottom: 30px;
+    }
+
+    .payment-result {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .payment-info {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .payment-info p {
+        margin-bottom: 10px;
+        font-size: 1.1rem;
+    }
+
+    /* Estilo para o loading */
+    .loading-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 200px;
+    }
+
+    .loading-spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #0F468C;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
+
+<input id="mercado-pago-public-key" value="{{public_key}}" type="hidden" />
+<input type="hidden" id="amount" value="{{ plano.valor }}" />
+<input type="hidden" id="description" value="{{ plano.nome }}" />
+
+<!-- Payment Form -->
+<section class="payment-form">
+    <div class="container__payment card-base">
+        <div class="block-heading">
+            <h2 class="title-base">Checkout</h2>
+            <p>Complete seu pagamento para ter acesso a todos os recursos premium</p>
+        </div>
+        <div class="form-payment">
+            <!-- Loading Spinner -->
+            <div class="loading-container" id="loading-container">
+                <div class="loading-spinner"></div>
+            </div>
+            
+            <!-- Container do Mercado Pago -->
+            <div id="mercadopago-bricks-contaner__PaymentCard" style="display: none;"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Resultado do Pagamento -->
+<section class="payment-result" style="display: none;">
+    <div class="container">
+        <div class="card-base">
+            <div class="block-heading">
+                <h2 class="title-base">Resultado do Pagamento</h2>
+            </div>
+            <div class="payment-info">
+                <p><b>ID do Pagamento: </b><span id="payment-id"></span></p>
+                <p><b>Status: </b><span id="payment-status"></span></p>
+                <p><b>Detalhes: </b><span id="payment-detail"></span></p>
+            </div>
+            <div class="text-center mt-4">
+                <a href="{{ url_for('home_bp.home') }}" class="btn btn-base">
+                    Ir para Home
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

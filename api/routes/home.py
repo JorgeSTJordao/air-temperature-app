@@ -1,9 +1,11 @@
 from flask import Blueprint, render_template, request, flash
-from api.forms_location import FormsLocation
+from api.forms.location import FormsLocation
 from api.config.URL_BASE import URL_BASE
 from api.routes.planos.planos import planos_bp
+from api.routes.pagamento.pagamento import pagamento_bp
 import os
 import requests
+from flask_login import login_required
 
 # Sua chave de API
 WEATHERAPI = os.getenv("WEATHERAPI")
@@ -14,8 +16,9 @@ url = URL_BASE
 home_bp = Blueprint("home_bp", __name__)
 
 home_bp.register_blueprint(planos_bp)
-
+home_bp.register_blueprint(pagamento_bp)
 @home_bp.route("/home", methods=["GET", "POST"])
+@login_required
 def home():
     forms_location = FormsLocation()
     valores_temp = None
